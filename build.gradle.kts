@@ -4,13 +4,16 @@ plugins {
 }
 
 group = "com.otus.kfl.rcrs"
-version = "0.0.1"
+version = "D-00.000.001"
 
 apply {
     from("repository.gradle")
 }
 
 subprojects {
+    repositories {
+        mavenCentral()
+    }
     group = rootProject.group
     version = rootProject.version
 }
