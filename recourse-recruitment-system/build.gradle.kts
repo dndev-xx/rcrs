@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.otus.kfl.rcrs"
-version = "D-00-000-01"
+version = "D-00.000.02"
 
 subprojects {
     group = rootProject.group
