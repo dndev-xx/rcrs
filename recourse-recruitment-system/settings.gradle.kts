@@ -25,6 +25,6 @@ plugins {
 }
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":test-hello")
+include(":rcrs-v1-common")
 
 

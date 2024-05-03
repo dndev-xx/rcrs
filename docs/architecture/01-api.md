@@ -17,7 +17,7 @@
             - category vc
             - city
             - email/phone
-    - repsonse:
+    - response:
         - system:
             - responseType
             - resultStatus
@@ -40,7 +40,7 @@
             - rqTime
         - subscriber:
             - email/phone
-    - repsonse:
+    - response:
         - system:
             - responseType
             - resultStatus
@@ -64,7 +64,7 @@
         - model (hh, habr etc)
         - filters:
             - array of type for filters (salary,city,category etc)
-    - repsonse:
+    - response:
         - system:
             - responseType
             - resultStatus
@@ -89,7 +89,7 @@
             - rqTime
         - filters:
             - array of type for filters (salary,city,category etc)
-    - repsonse:
+    - response:
         - system:
             - responseType
             - resultStatus
