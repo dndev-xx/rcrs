@@ -93,10 +93,8 @@ components:
       type: object
       description: Базовый интерфейс для всех запросов
       properties:
-        requestType:
-          type: string
-          description: Поле-дескриминатор для вычисления типа запроса
-          example: create
+        system:
+          $ref: '#/components/schemas/RcrsSystem'
       discriminator:
         propertyName: requestType
         mapping:
@@ -104,14 +102,20 @@ components:
           read: '#/components/schemas/VcReadRequest'
           stat: '#/components/schemas/VcStatRequest'
 
-    Error:
+    RcrsSystem:
+      type: object
+      properties:
+        rqUid:
+          type: string
+        rqTm:
+          type: string
+
+    VsError:
       type: object
       properties:
         code:
           type: string
         group:
-          type: string
-        field:
           type: string
         message:
           type: string
@@ -135,7 +139,7 @@ components:
         errors:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/VsError'
       discriminator:
         propertyName: responseType
         mapping:
@@ -456,19 +460,19 @@ components:
     RequestDebugMode:
       type: string
       enum:
+        - none
         - prod
-        - test
+        - dev
+        - uat
         - stub
 
     RequestDebugStub:
       type: string
       description: Перечисления всех стабов
       enum:
+        - none
         - success
-        - notFound
-        - badId
-        - badTitle
-        - badDescription
-        - badVisibility
-        - cannotDelete
-        - badSearchString
+        - cannotCanceled
+        - cannotRead
+        - cannotStat
+        - cannotCompute

@@ -5,6 +5,7 @@ kotlinx-serialization = "1.6.3"
 binaryCompabilityValidator = "0.13.2"
 openapi-generator = "7.3.0"
 jackson = "2.16.1"
+mapper = "1.5.5.Final"
 
 # BASE
 jvm-compiler = "17"
@@ -12,14 +13,17 @@ jvm-language = "21"
 
 [libraries]
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-
 plugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "binaryCompabilityValidator" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
 jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 jackson-datatype = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+kotlin-mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapper" }
+kotlin-mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapper" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect"}
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"}
+
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
