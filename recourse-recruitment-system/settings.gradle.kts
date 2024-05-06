@@ -27,5 +27,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":rcrs-v1-common")
 include(":rcrs-v1-spec-compile")
+include(":rcrs-v1-sql-builder")
 
 
