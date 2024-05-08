@@ -76,7 +76,7 @@
         - vacancies:
             - array
 
-### **/api/v1/stat POST**
+### **/api/v1/start POST**
     - headers:
         - x3-trace-id
         - x3-span-id

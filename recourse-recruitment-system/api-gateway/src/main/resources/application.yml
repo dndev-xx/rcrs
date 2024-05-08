@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /api/v1
+
+spring:
+  datasource:
+    username: rcrs_admin
+    password: password
+    name: rcrs_db
+    url: jdbc:postgresql://localhost:5432/rcrs_db
+  kafka:
+    bootstrap-servers: localhost:9092
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false

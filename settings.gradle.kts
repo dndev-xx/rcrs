@@ -9,5 +9,3 @@ plugins {
 }
 rootProject.name = "rcrs"
 includeBuild("recourse-recruitment-system")
-
-

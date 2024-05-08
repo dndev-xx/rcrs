@@ -26,5 +26,4 @@ plugins {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":test-hello")
-
-
+include(":api-gateway")
