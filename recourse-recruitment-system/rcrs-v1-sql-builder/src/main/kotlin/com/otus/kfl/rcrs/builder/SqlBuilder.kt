@@ -1,6 +1,7 @@
 package com.otus.kfl.rcrs.builder
 
 import com.otus.kfl.rcrs.builder.CriteriaContext.Companion.getInstanceConditionContext
+import com.otus.kfl.rcrs.builder.JoinContext.Companion.getInstanceJoinContext
 import com.otus.kfl.rcrs.domain.Action
 import com.otus.kfl.rcrs.domain.SqlQuery
 import java.lang.StringBuilder
@@ -54,8 +55,18 @@ class SqlBuilder {
         _from.append("from $table")
     }
 
+    fun from(table: String, alias: String) {
+        _from.append("from $table $alias")
+    }
+
     fun table(table: String) {
         _from.append("$table ")
+    }
+
+    fun join(block: JoinContext.() -> Unit) {
+        val ctx = getInstanceJoinContext().apply(block)
+        _from.append(" ${ctx.joinBuild}")
+        ctx.joinBuild.clear()
     }
 
     fun build() = SqlQuery(
