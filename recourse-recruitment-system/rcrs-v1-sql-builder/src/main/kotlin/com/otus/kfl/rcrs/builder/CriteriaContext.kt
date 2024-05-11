@@ -1,5 +1,6 @@
 package com.otus.kfl.rcrs.builder
 
+import com.otus.kfl.rcrs.builder.SubqueryContext.Companion.getInstanceSubqueryContext
 import com.otus.kfl.rcrs.dsl.SqlCustomMarker
 
 @SqlCustomMarker
@@ -25,6 +26,19 @@ class CriteriaContext private constructor() {
     fun or(block: CriteriaContext.() -> Unit) {
         criteriaBuild.append(" or ")
         this.apply(block)
+    }
+
+    fun `in`(comparable: String, agrs: List<String>) {
+        criteriaBuild.append("$comparable in (${agrs.joinToString(", ")})")
+    }
+
+    fun `in`(comparable: String, block: SubqueryContext.() -> Unit) {
+        val temp = criteriaBuild.toString()
+        val ctx = getInstanceSubqueryContext()
+        ctx.context.append("$comparable in ")
+        ctx.apply(block)
+        criteriaBuild.append("$temp${ctx.context}")
+        ctx.context.clear()
     }
 
     infix fun String?.eq(value: String?) {
