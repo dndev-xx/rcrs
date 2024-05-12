@@ -55,8 +55,8 @@ class SqlBuilder {
         _from.append("from $table")
     }
 
-    fun from(table: String, alias: String) {
-        _from.append("from $table $alias")
+    infix fun String?.alias(value: String): String {
+        return "$this $value"
     }
 
     fun table(table: String) {

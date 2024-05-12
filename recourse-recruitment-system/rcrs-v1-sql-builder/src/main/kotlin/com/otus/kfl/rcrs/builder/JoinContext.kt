@@ -24,8 +24,8 @@ class JoinContext private constructor() {
         joinBuild.append("${join.name} join ")
     }
 
-    fun table(name: String, alias: String) {
-        joinBuild.append("$name $alias ")
+    fun table(value: String) {
+        joinBuild.append("$value ")
     }
 
     fun on(block: CriteriaContext.() -> Unit) {

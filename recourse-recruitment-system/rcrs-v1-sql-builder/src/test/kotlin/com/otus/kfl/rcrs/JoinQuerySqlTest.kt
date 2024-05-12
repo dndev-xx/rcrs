@@ -14,10 +14,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name", "d.number"))
-            from("person", "p")
+            from("person" alias "p")
             join {
                 mode(JoinMode.INNER)
-                table("document", "d")
+                table("document" alias "d")
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -33,10 +33,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person", "p")
+            from("person" alias "p")
             join {
                 mode(JoinMode.INNER)
-                table("document", "d")
+                table("document" alias "d")
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -56,10 +56,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person", "p")
+            from("person" alias "p")
             join {
                 mode(JoinMode.INNER)
-                table("document", "d")
+                table("document" alias "d")
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -79,10 +79,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person", "p")
+            from("person" alias "p")
             join {
                 mode(JoinMode.INNER)
-                table("document", "d")
+                table("document" alias "d")
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -103,17 +103,17 @@ class JoinQuerySqlTest {
             "SELECT * from orders o INNER join customers c on o.customer_id = c.id INNER join products p on o.product_id = p.id where p.name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("orders", "o")
+            from("orders" alias "o")
             join {
                 mode(JoinMode.INNER)
-                table("customers", "c")
+                table("customers" alias "c")
                 on {
                     "o.customer_id" eq "c.id"
                 }
             }
             join {
                 mode(JoinMode.INNER)
-                table("products", "p")
+                table("products" alias "p")
                 on {
                     "o.product_id" eq "p.id"
                 }
