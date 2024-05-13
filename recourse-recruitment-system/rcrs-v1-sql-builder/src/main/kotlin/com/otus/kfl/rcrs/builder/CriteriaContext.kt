@@ -41,6 +41,20 @@ class CriteriaContext private constructor() {
         ctx.context.clear()
     }
 
+    infix fun String?.notIn(agrs: List<String>) {
+        this `in` agrs
+        this?.let { insertNotAfter(this) }
+    }
+
+    infix fun String?.notIn(block: SubqueryContext.() -> Unit) {
+        this `in` block
+        this?.let { insertNotAfter(this) }
+    }
+
+    private fun insertNotAfter(comparable: String) {
+        criteriaBuild.insert(comparable.length, " not")
+    }
+
     infix fun String?.eq(value: String?) {
         criteriaBuild.append("$this = $value")
     }

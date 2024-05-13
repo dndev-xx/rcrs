@@ -193,4 +193,25 @@ class SubquerySqlTest {
         }
         checkSQL(expected, real.toString())
     }
+
+    @Test
+    fun `when select all from product where category_id not in (select id from category where name = electronic)`() {
+        val expected = "SELECT * from product where category_id not in (SELECT id from category where name = electronic)"
+        val real = query {
+            mode { Action.SELECT }
+            from("product")
+            where {
+                "category_id" notIn {
+                    subquery {
+                        mode({ Action.SELECT }, listOf("id"))
+                        from("category")
+                        where {
+                            "name" eq "electronic"
+                        }
+                    }
+                }
+            }
+        }
+        checkSQL(expected, real.toString())
+    }
 }

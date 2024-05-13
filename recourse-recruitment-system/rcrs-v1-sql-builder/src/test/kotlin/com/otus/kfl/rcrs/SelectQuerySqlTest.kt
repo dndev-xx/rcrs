@@ -114,4 +114,17 @@ class SelectQuerySqlTest {
         }
         checkSQL(expected, real.toString())
     }
+
+    @Test
+    fun `when select all from products where product_id not in (2, 5, 8)`() {
+        val expected = "SELECT * from products where product_id not in (2, 5, 8)"
+        val real = query {
+            mode { Action.SELECT }
+            from("products")
+            where {
+                "product_id" notIn listOf("2", "5", "8")
+            }
+        }
+        checkSQL(expected, real.toString())
+    }
 }
