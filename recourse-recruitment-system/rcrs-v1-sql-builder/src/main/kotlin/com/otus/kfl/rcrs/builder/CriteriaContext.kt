@@ -28,14 +28,14 @@ class CriteriaContext private constructor() {
         this.apply(block)
     }
 
-    fun `in`(comparable: String, agrs: List<String>) {
-        criteriaBuild.append("$comparable in (${agrs.joinToString(", ")})")
+    infix fun String?.`in`(agrs: List<String>) {
+        criteriaBuild.append("$this in (${agrs.joinToString(", ")})")
     }
 
-    fun `in`(comparable: String, block: SubqueryContext.() -> Unit) {
+    infix fun String?.`in`(block: SubqueryContext.() -> Unit) {
         val temp = criteriaBuild.toString()
         val ctx = getInstanceSubqueryContext()
-        ctx.context.append("$comparable in ")
+        ctx.context.append("$this in ")
         ctx.apply(block)
         criteriaBuild.append("$temp${ctx.context}")
         ctx.context.clear()

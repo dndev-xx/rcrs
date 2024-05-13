@@ -13,7 +13,7 @@ class SubquerySqlTest {
             mode { Action.SELECT }
             from("product")
             where {
-                `in`("category_id") {
+                "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
                         from("category")
@@ -34,7 +34,7 @@ class SubquerySqlTest {
             mode { Action.SELECT }
             from("product")
             where {
-                `in`("category_id") {
+                "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
                         from("category")
@@ -44,7 +44,7 @@ class SubquerySqlTest {
                     }
                 }
                 and {
-                    `in`("foo_id") {
+                    "foo_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
                             from("foo")
@@ -68,7 +68,7 @@ class SubquerySqlTest {
             where {
                 "name" eq "iphone"
                 and {
-                    `in`("category_id") {
+                    "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
                             from("category")
@@ -90,7 +90,7 @@ class SubquerySqlTest {
             mode { Action.SELECT }
             from("product")
             where {
-                `in`("category_id") {
+                "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
                         from("category")
@@ -119,7 +119,7 @@ class SubquerySqlTest {
                     "foo" eq "foo"
                 }
                 and {
-                    `in`("category_id") {
+                    "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
                             from("category")
@@ -149,7 +149,7 @@ class SubquerySqlTest {
                     "baz" eq "baz"
                 }
                 and {
-                    `in`("category_id") {
+                    "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
                             from("category")
@@ -176,7 +176,7 @@ class SubquerySqlTest {
                     "baz" eq "baz"
                 }
                 and {
-                    `in`("category_id") {
+                    "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
                             from("category")

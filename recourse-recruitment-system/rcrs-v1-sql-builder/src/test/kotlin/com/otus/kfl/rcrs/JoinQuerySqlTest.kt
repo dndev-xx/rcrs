@@ -2,10 +2,29 @@ package com.otus.kfl.rcrs
 
 import com.otus.kfl.rcrs.SelectQuerySqlTest.Companion.checkSQL
 import com.otus.kfl.rcrs.domain.Action
+import com.otus.kfl.rcrs.domain.JoinMode.LEFT
 import com.otus.kfl.rcrs.domain.JoinMode
 import kotlin.test.Test
 
 class JoinQuerySqlTest {
+
+    @Test
+    fun `when select pname dnumber from person p left join document d on pdoc_id = did`() {
+        val expected = "SELECT p.name, d.number from person p LEFT join document d on p.doc_id = d.id "
+        val real = query {
+            mode({
+                Action.SELECT
+            }, listOf("p.name", "d.number"))
+            from("person" `as` "p")
+            LEFT join {
+                table("document" `as` "d")
+                on {
+                    "p.doc_id" eq "d.id"
+                }
+            }
+        }
+        checkSQL(expected, real.toString())
+    }
 
     @Test
     fun `when select pname dnumber from person p inner join document d on pdoc_id = did`() {
@@ -14,10 +33,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name", "d.number"))
-            from("person" alias "p")
+            from("person" `as` "p")
             join {
                 mode(JoinMode.INNER)
-                table("document" alias "d")
+                table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -33,10 +52,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" alias "p")
+            from("person" `as` "p")
             join {
                 mode(JoinMode.INNER)
-                table("document" alias "d")
+                table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -56,10 +75,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" alias "p")
+            from("person" `as` "p")
             join {
                 mode(JoinMode.INNER)
-                table("document" alias "d")
+                table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -79,10 +98,10 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" alias "p")
+            from("person" `as` "p")
             join {
                 mode(JoinMode.INNER)
-                table("document" alias "d")
+                table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -103,17 +122,17 @@ class JoinQuerySqlTest {
             "SELECT * from orders o INNER join customers c on o.customer_id = c.id INNER join products p on o.product_id = p.id where p.name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("orders" alias "o")
+            from("orders" `as` "o")
             join {
                 mode(JoinMode.INNER)
-                table("customers" alias "c")
+                table("customers" `as` "c")
                 on {
                     "o.customer_id" eq "c.id"
                 }
             }
             join {
                 mode(JoinMode.INNER)
-                table("products" alias "p")
+                table("products" `as` "p")
                 on {
                     "o.product_id" eq "p.id"
                 }

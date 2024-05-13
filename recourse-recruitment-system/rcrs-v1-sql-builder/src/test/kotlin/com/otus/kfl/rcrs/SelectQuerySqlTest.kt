@@ -90,7 +90,7 @@ class SelectQuerySqlTest {
             mode { Action.SELECT }
             from("products")
             where {
-                `in`("product_id", listOf("2", "5", "8"))
+                "product_id" `in` listOf("2", "5", "8")
             }
         }
         checkSQL(expected, real.toString())
@@ -105,7 +105,7 @@ class SelectQuerySqlTest {
             where {
                 "category_id" eq "1"
                 and {
-                    `in`("product_id", listOf("2", "5", "8"))
+                    "product_id" `in` listOf("2", "5", "8")
                 }
                 and {
                     "name" eq "iphone"
