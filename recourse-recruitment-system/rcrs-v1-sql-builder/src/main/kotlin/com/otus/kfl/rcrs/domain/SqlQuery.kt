@@ -11,7 +11,7 @@ data class SqlQuery(
             "insert" -> "$command $from $condition"
             "update" -> "$command $from $agrs $condition"
             "delete" -> "$command $from $condition"
-            else -> "$command $agrs $from ${condition.ifEmpty { "" }}"
+            else -> "$command $agrs $from${if (condition.isNotEmpty()) " $condition" else ""}"
         }
     }
 }

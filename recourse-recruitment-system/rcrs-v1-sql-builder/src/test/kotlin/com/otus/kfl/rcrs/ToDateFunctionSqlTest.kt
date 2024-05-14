@@ -10,7 +10,7 @@ class ToDateFunctionSqlTest {
 
     @Test
     fun `select to date(2019 07 22, yyyy MM dd) from dual - using slash`() {
-        val expected = "SELECT TO_DATE('2019/07/22', 'yyyy/MM/dd') from dual "
+        val expected = "SELECT TO_DATE('2019/07/22', 'yyyy/MM/dd') from dual"
         val real = query {
             mode({ Action.SELECT }, listOf(toDate("2019/07/22", DateFormat.YYYY_MM_DD_SLASH)))
             from("dual")
@@ -20,7 +20,7 @@ class ToDateFunctionSqlTest {
 
     @Test
     fun `select to date(20190722, yyyyMMdd) from dual - conclusively`() {
-        val expected = "SELECT TO_DATE('20190722', 'yyyyMMdd') from dual "
+        val expected = "SELECT TO_DATE('20190722', 'yyyyMMdd') from dual"
         val real = query {
             mode({ Action.SELECT }, listOf(toDate("20190722", DateFormat.YYYYMMDD)))
             from("dual")

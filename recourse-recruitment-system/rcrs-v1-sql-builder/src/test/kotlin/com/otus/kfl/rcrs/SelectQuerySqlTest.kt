@@ -14,7 +14,7 @@ class SelectQuerySqlTest {
 
     @Test
     fun `simple select all from table`() {
-        val expected = "SELECT * from table "
+        val expected = "SELECT * from table"
 
         val real = query {
             mode {

@@ -10,7 +10,7 @@ class JoinQuerySqlTest {
 
     @Test
     fun `when select pname dnumber from person p left join document d on pdoc_id = did`() {
-        val expected = "SELECT p.name, d.number from person p LEFT join document d on p.doc_id = d.id "
+        val expected = "SELECT p.name, d.number from person p LEFT join document d on p.doc_id = d.id"
         val real = query {
             mode({
                 Action.SELECT
@@ -28,7 +28,7 @@ class JoinQuerySqlTest {
 
     @Test
     fun `when select pname dnumber from person p inner join document d on pdoc_id = did`() {
-        val expected = "SELECT p.name, d.number from person p INNER join document d on p.doc_id = d.id "
+        val expected = "SELECT p.name, d.number from person p INNER join document d on p.doc_id = d.id"
         val real = query {
             mode({
                 Action.SELECT
@@ -70,7 +70,7 @@ class JoinQuerySqlTest {
     @Test
     fun `when select pname from person p inner join document d on pdoc_id = did and panother_id = danother_id`() {
         val expected =
-            "SELECT p.name from person p INNER join document d on p.doc_id = d.id and p.another_id = d.another_id "
+            "SELECT p.name from person p INNER join document d on p.doc_id = d.id and p.another_id = d.another_id"
         val real = query {
             mode({
                 Action.SELECT
