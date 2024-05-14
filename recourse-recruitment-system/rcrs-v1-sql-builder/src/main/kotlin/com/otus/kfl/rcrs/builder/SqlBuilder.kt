@@ -52,8 +52,8 @@ class SqlBuilder {
         _condition.append("values (${values.joinToString()})")
     }
 
-    fun from(table: String) {
-        _from.append("from $table")
+    fun from(block: () -> String) {
+        _from.append("from ${block.invoke()}")
     }
 
     fun from(table: String, alias: String) {
@@ -64,8 +64,8 @@ class SqlBuilder {
         return "$this $value"
     }
 
-    fun table(table: String) {
-        _from.append("$table ")
+    fun table(block: () -> String) {
+        _from.append("${block.invoke()} ")
     }
 
     fun join(block: JoinContext.() -> Unit) {

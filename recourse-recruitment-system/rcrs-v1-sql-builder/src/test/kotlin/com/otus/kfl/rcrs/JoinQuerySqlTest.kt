@@ -15,7 +15,7 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name", "d.number"))
-            from("person" `as` "p")
+            from { "person" `as` "p" }
             LEFT join {
                 table("document" `as` "d")
                 on {
@@ -33,7 +33,7 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name", "d.number"))
-            from("person" `as` "p")
+            from { "person" `as` "p" }
             join {
                 mode(JoinMode.INNER)
                 table("document" `as` "d")
@@ -52,7 +52,7 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" `as` "p")
+            from { "person" `as` "p" }
             join {
                 mode(JoinMode.INNER)
                 table("document" `as` "d")
@@ -75,7 +75,7 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" `as` "p")
+            from { "person" `as` "p" }
             join {
                 mode(JoinMode.INNER)
                 table("document" `as` "d")
@@ -98,7 +98,7 @@ class JoinQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("p.name"))
-            from("person" `as` "p")
+            from { "person" `as` "p" }
             join {
                 mode(JoinMode.INNER)
                 table("document" `as` "d")
@@ -122,7 +122,7 @@ class JoinQuerySqlTest {
             "SELECT * from orders o INNER join customers c on o.customer_id = c.id INNER join products p on o.product_id = p.id where p.name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("orders" `as` "o")
+            from { "orders" `as` "o" }
             join {
                 mode(JoinMode.INNER)
                 table("customers" `as` "c")

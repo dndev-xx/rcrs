@@ -20,7 +20,7 @@ class SelectQuerySqlTest {
             mode {
                 Action.SELECT
             }
-            from("table")
+            from { "table" }
         }
         checkSQL(expected, real.toString())
     }
@@ -33,7 +33,7 @@ class SelectQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("id", "name"))
-            from("table")
+            from { "table" }
             where {
                 "id" eq "1"
             }
@@ -50,7 +50,7 @@ class SelectQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("id", "name"))
-            from("table")
+            from { "table" }
             where {
                 "id" eq "1"
                 and {
@@ -69,7 +69,7 @@ class SelectQuerySqlTest {
             mode({
                 Action.SELECT
             }, listOf("id", "name"))
-            from("table")
+            from { "table" }
             where {
                 "id" eq "1"
                 and {
@@ -88,7 +88,7 @@ class SelectQuerySqlTest {
         val expected = "SELECT * from products where product_id in (2, 5, 8)"
         val real = query {
             mode { Action.SELECT }
-            from("products")
+            from { "products" }
             where {
                 "product_id" `in` listOf("2", "5", "8")
             }
@@ -101,7 +101,7 @@ class SelectQuerySqlTest {
         val expected = "SELECT * from products where category_id = 1 and product_id in (2, 5, 8) and name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("products")
+            from { "products" }
             where {
                 "category_id" eq "1"
                 and {
@@ -120,7 +120,7 @@ class SelectQuerySqlTest {
         val expected = "SELECT * from products where product_id not in (2, 5, 8)"
         val real = query {
             mode { Action.SELECT }
-            from("products")
+            from { "products" }
             where {
                 "product_id" notIn listOf("2", "5", "8")
             }

@@ -11,12 +11,12 @@ class SubquerySqlTest {
         val expected = "SELECT * from product where category_id in (SELECT id from category where name = electronic)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
-                        from("category")
+                        from { "category" }
                         where {
                             "name" eq "electronic"
                         }
@@ -29,15 +29,16 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where category_id in (select id from category where name = electronic) and foo_id in (select id from foo where foo = foo)`() {
-        val expected = "SELECT * from product where category_id in (SELECT id from category where name = electronic) and foo_id in (SELECT id from foo where foo = foo)"
+        val expected =
+            "SELECT * from product where category_id in (SELECT id from category where name = electronic) and foo_id in (SELECT id from foo where foo = foo)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
-                        from("category")
+                        from { "category" }
                         where {
                             "name" eq "electronic"
                         }
@@ -47,7 +48,7 @@ class SubquerySqlTest {
                     "foo_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("foo")
+                            from { "foo" }
                             where {
                                 "foo" eq "foo"
                             }
@@ -61,17 +62,18 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where name = iphone and category_id in (select id from category where name = electronic)`() {
-        val expected = "SELECT * from product where name = iphone and category_id in (SELECT id from category where name = electronic)"
+        val expected =
+            "SELECT * from product where name = iphone and category_id in (SELECT id from category where name = electronic)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "name" eq "iphone"
                 and {
                     "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("category")
+                            from { "category" }
                             where {
                                 "name" eq "electronic"
                             }
@@ -85,15 +87,16 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where category_id in (select id from category where name = electronic) and name = iphone`() {
-        val expected = "SELECT * from product where category_id in (SELECT id from category where name = electronic) and name = iphone"
+        val expected =
+            "SELECT * from product where category_id in (SELECT id from category where name = electronic) and name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "category_id" `in` {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
-                        from("category")
+                        from { "category" }
                         where {
                             "name" eq "electronic"
                         }
@@ -109,10 +112,11 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where name = iphone and foo = foo and category_id in (select id from category where name = electronic)`() {
-        val expected = "SELECT * from product where name = iphone and foo = foo and category_id in (SELECT id from category where name = electronic)"
+        val expected =
+            "SELECT * from product where name = iphone and foo = foo and category_id in (SELECT id from category where name = electronic)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "name" eq "iphone"
                 and {
@@ -122,7 +126,7 @@ class SubquerySqlTest {
                     "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("category")
+                            from { "category" }
                             where {
                                 "name" eq "electronic"
                             }
@@ -136,10 +140,11 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where name = iphone and foo = foo and baz = baz and category_id in (select id from category where name = electronic)`() {
-        val expected = "SELECT * from product where name = iphone and foo = foo and baz = baz and category_id in (SELECT id from category where name = electronic)"
+        val expected =
+            "SELECT * from product where name = iphone and foo = foo and baz = baz and category_id in (SELECT id from category where name = electronic)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "name" eq "iphone"
                 and {
@@ -152,7 +157,7 @@ class SubquerySqlTest {
                     "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("category")
+                            from { "category" }
                             where {
                                 "name" eq "electronic"
                             }
@@ -166,10 +171,11 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where foo = foo and baz = baz and category_id in (select id from category where name = electronic) and name = iphone`() {
-        val expected = "SELECT * from product where foo = foo and baz = baz and category_id in (SELECT id from category where name = electronic) and name = iphone"
+        val expected =
+            "SELECT * from product where foo = foo and baz = baz and category_id in (SELECT id from category where name = electronic) and name = iphone"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "foo" eq "foo"
                 and {
@@ -179,7 +185,7 @@ class SubquerySqlTest {
                     "category_id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("category")
+                            from { "category" }
                             where {
                                 "name" eq "electronic"
                             }
@@ -196,15 +202,16 @@ class SubquerySqlTest {
 
     @Test
     fun `when select all from product where category_id not in (select id from category where name = electronic)`() {
-        val expected = "SELECT * from product where category_id not in (SELECT id from category where name = electronic)"
+        val expected =
+            "SELECT * from product where category_id not in (SELECT id from category where name = electronic)"
         val real = query {
             mode { Action.SELECT }
-            from("product")
+            from { "product" }
             where {
                 "category_id" notIn {
                     subquery {
                         mode({ Action.SELECT }, listOf("id"))
-                        from("category")
+                        from { "category" }
                         where {
                             "name" eq "electronic"
                         }

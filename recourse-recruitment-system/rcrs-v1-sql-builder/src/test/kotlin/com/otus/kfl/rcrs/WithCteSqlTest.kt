@@ -13,19 +13,19 @@ class WithCteSqlTest {
         val real = with {
             "purchased_products" `as` {
                 mode({ Action.SELECT }, listOf("id"))
-                from("product")
+                from { "product" }
                 where {
                     "status" eq "purchased"
                 }
             }
             query {
                 mode({ Action.SELECT }, listOf("id"))
-                from("product")
+                from { "product" }
                 where {
                     "id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("purchased_products")
+                            from { "purchased_products" }
                         }
                     }
                 }
@@ -41,24 +41,24 @@ class WithCteSqlTest {
         val real = with {
             "purchased_products" `as` {
                 mode({ Action.SELECT }, listOf("id"))
-                from("product")
+                from { "product" }
                 where {
                     "status" eq "purchased"
                 }
             }
             "foo" `as` {
                 mode { Action.SELECT }
-                from("foo")
+                from { "foo" }
                 where { "foo" eq "bar" }
             }
             query {
                 mode({ Action.SELECT }, listOf("id"))
-                from("product")
+                from { "product" }
                 where {
                     "id" `in` {
                         subquery {
                             mode({ Action.SELECT }, listOf("id"))
-                            from("purchased_products")
+                            from { "purchased_products" }
                         }
                     }
                 }

@@ -11,8 +11,22 @@ class UpdateQuerySqlTest {
         val expected = "UPDATE table set name = martin where id = 1"
         val real = query {
             mode { Action.UPDATE }
-            table("table")
+            table { "table" }
             set(mapOf("name" to "martin"))
+            where {
+                "id" eq "1"
+            }
+        }
+        checkSQL(expected, real.toString())
+    }
+
+    @Test
+    fun `when update table set position = manager where id = 1`() {
+        val expected = "UPDATE table set position = 'manager' where id = 1"
+        val real = query {
+            mode { Action.UPDATE }
+            table { "table" }
+            set(mapOf("position" to "'manager'"))
             where {
                 "id" eq "1"
             }
@@ -25,7 +39,7 @@ class UpdateQuerySqlTest {
         val expected = "UPDATE table set name = martin, age = 23, position = expert where id = 1"
         val real = query {
             mode { Action.UPDATE }
-            table("table")
+            table { "table" }
             set(
                 mapOf(
                     "name" to "martin",

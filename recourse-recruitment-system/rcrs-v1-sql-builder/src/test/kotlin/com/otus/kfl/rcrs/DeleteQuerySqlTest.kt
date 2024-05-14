@@ -11,7 +11,7 @@ class DeleteQuerySqlTest {
         val expected = "DELETE from table where id = 1"
         val real = query {
             mode { Action.DELETE }
-            from("table")
+            from { "table" }
             where {
                 "id" eq "1"
             }

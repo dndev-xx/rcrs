@@ -13,7 +13,7 @@ class ToDateFunctionSqlTest {
         val expected = "SELECT TO_DATE('2019/07/22', 'yyyy/MM/dd') from dual"
         val real = query {
             mode({ Action.SELECT }, listOf(toDate("2019/07/22", DateFormat.YYYY_MM_DD_SLASH)))
-            from("dual")
+            from { "dual" }
         }
         checkSQL(expected, real.toString())
     }
@@ -23,7 +23,7 @@ class ToDateFunctionSqlTest {
         val expected = "SELECT TO_DATE('20190722', 'yyyyMMdd') from dual"
         val real = query {
             mode({ Action.SELECT }, listOf(toDate("20190722", DateFormat.YYYYMMDD)))
-            from("dual")
+            from { "dual" }
         }
         checkSQL(expected, real.toString())
     }
