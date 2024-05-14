@@ -17,7 +17,7 @@ class JoinQuerySqlTest {
             }, listOf("p.name", "d.number"))
             from { "person" `as` "p" }
             LEFT join {
-                table("document" `as` "d")
+                table { "document" `as` "d" }
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -36,7 +36,7 @@ class JoinQuerySqlTest {
             from { "person" `as` "p" }
             join {
                 mode { JoinMode.INNER }
-                table("document" `as` "d")
+                table { "document" `as` "d" }
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -55,7 +55,7 @@ class JoinQuerySqlTest {
             from { "person" `as` "p" }
             join {
                 mode { JoinMode.INNER }
-                table("document" `as` "d")
+                table { "document" `as` "d" }
                 on {
                     "p.doc_id" eq "d.id"
                 }
@@ -78,7 +78,7 @@ class JoinQuerySqlTest {
             from { "person" `as` "p" }
             join {
                 mode { JoinMode.INNER }
-                table("document" `as` "d")
+                table { "document" `as` "d" }
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -101,7 +101,7 @@ class JoinQuerySqlTest {
             from { "person" `as` "p" }
             join {
                 mode { JoinMode.INNER }
-                table("document" `as` "d")
+                table { "document" `as` "d" }
                 on {
                     "p.doc_id" eq "d.id"
                     and {
@@ -125,14 +125,14 @@ class JoinQuerySqlTest {
             from { "orders" `as` "o" }
             join {
                 mode { JoinMode.INNER }
-                table("customers" `as` "c")
+                table { "customers" `as` "c" }
                 on {
                     "o.customer_id" eq "c.id"
                 }
             }
             join {
                 mode { JoinMode.INNER }
-                table("products" `as` "p")
+                table { "products" `as` "p" }
                 on {
                     "o.product_id" eq "p.id"
                 }

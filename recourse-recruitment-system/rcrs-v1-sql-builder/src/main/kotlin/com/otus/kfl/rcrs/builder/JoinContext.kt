@@ -24,8 +24,8 @@ class JoinContext private constructor() {
         joinBuild.append("${block.invoke().name} join ")
     }
 
-    fun table(value: String) {
-        joinBuild.append("$value ")
+    fun table(block: () -> String) {
+        joinBuild.append("${block.invoke()} ")
     }
 
     fun on(block: CriteriaContext.() -> Unit) {
