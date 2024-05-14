@@ -76,7 +76,7 @@ class SqlBuilder {
 
     infix fun JoinMode?.join(block: JoinContext.() -> Unit) {
         val ctx = getInstanceJoinContext()
-        ctx.mode(this ?: JoinMode.INNER)
+        ctx.mode { this ?: JoinMode.INNER }
         ctx.apply(block)
         _from.append(" ${ctx.joinBuild}")
         ctx.joinBuild.clear()

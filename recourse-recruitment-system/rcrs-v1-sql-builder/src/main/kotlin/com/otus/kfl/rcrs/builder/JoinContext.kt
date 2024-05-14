@@ -20,8 +20,8 @@ class JoinContext private constructor() {
         }
     }
 
-    fun mode(join: JoinMode) {
-        joinBuild.append("${join.name} join ")
+    fun mode(block: () -> JoinMode) {
+        joinBuild.append("${block.invoke().name} join ")
     }
 
     fun table(value: String) {

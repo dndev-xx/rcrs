@@ -35,7 +35,7 @@ class JoinQuerySqlTest {
             }, listOf("p.name", "d.number"))
             from { "person" `as` "p" }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
@@ -54,7 +54,7 @@ class JoinQuerySqlTest {
             }, listOf("p.name"))
             from { "person" `as` "p" }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
@@ -77,7 +77,7 @@ class JoinQuerySqlTest {
             }, listOf("p.name"))
             from { "person" `as` "p" }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
@@ -100,7 +100,7 @@ class JoinQuerySqlTest {
             }, listOf("p.name"))
             from { "person" `as` "p" }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("document" `as` "d")
                 on {
                     "p.doc_id" eq "d.id"
@@ -124,14 +124,14 @@ class JoinQuerySqlTest {
             mode { Action.SELECT }
             from { "orders" `as` "o" }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("customers" `as` "c")
                 on {
                     "o.customer_id" eq "c.id"
                 }
             }
             join {
-                mode(JoinMode.INNER)
+                mode { JoinMode.INNER }
                 table("products" `as` "p")
                 on {
                     "o.product_id" eq "p.id"
