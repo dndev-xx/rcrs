@@ -1,0 +1,478 @@
+openapi: 3.0.3
+info:
+  title: "Resource for Recruitment System Analysis"
+  description: This is a system for an analytical platform
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080/recourse-recruitment-system/api/v1
+paths:
+
+  /subscribe:
+    post:
+      summary: Subscribe
+      operationId: vcSubscribe
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VcCommonRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+
+  /canceled:
+    post:
+      summary: Delete sub
+      operationId: subDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VcCommonRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+
+  /read:
+    post:
+      summary: Read
+      operationId: vcRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VcReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VcReadResponse'
+
+  /stat:
+    post:
+      summary: Statistic
+      operationId: stat
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VcStatRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VcStatResponse'
+
+components:
+  schemas:
+
+    BaseRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        system:
+          $ref: '#/components/schemas/RcrsSystem'
+      discriminator:
+        propertyName: requestType
+        mapping:
+          common: '#/components/schemas/VcCommonRequest'
+          read: '#/components/schemas/VcReadRequest'
+          stat: '#/components/schemas/VcStatRequest'
+
+    RcrsSystem:
+      type: object
+      properties:
+        rqUid:
+          type: string
+        rqTm:
+          type: string
+
+    VsError:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    BaseResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/VsError'
+      discriminator:
+        propertyName: responseType
+        mapping:
+          common: '#/components/schemas/CommonResponse'
+          read: '#/components/schemas/VcReadResponse'
+          stat: '#/components/schemas/VcStatResponse'
+
+    VcCommonRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            sub:
+              $ref: '#/components/schemas/ItemRequestObject'
+
+    VcStatRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            filtered:
+              $ref: '#/components/schemas/FilterStatObject'
+
+    VcReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/RequestDebug'
+        - type: object
+          properties:
+            filtered:
+              $ref: '#/components/schemas/FilterObject'
+
+    CommonResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+
+    VcReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: '#/components/schemas/VcResponseMulti'
+
+    VcStatResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: '#/components/schemas/VcResponseMultiStat'
+
+    VcResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            vacancies:
+              type: array
+              items:
+                $ref: '#/components/schemas/VcResponseObject'
+
+    VcResponseMultiStat:
+      allOf:
+        - type: object
+          description: Список собранной статистики
+          properties:
+            vacancies:
+              type: array
+              items:
+                $ref: '#/components/schemas/VcResponseObjectStat'
+
+    VcResponseObjectStat:
+      type: object
+      properties:
+        totalVacancies:
+          type: integer
+        regions:
+          type: array
+          items:
+            type: string
+        directionStats:
+          type: object
+          properties:
+            Kotlin:
+              $ref: '#/components/schemas/DirectionStats'
+            Java:
+              $ref: '#/components/schemas/DirectionStats'
+            C++:
+              $ref: '#/components/schemas/DirectionStats'
+            C#:
+              $ref: '#/components/schemas/DirectionStats'
+            JavaScript:
+              $ref: '#/components/schemas/DirectionStats'
+            Python:
+              $ref: '#/components/schemas/DirectionStats'
+
+    DirectionStats:
+      type: object
+      properties:
+        vacanciesCount:
+          type: integer
+        maxSalary:
+          type: number
+        minSalary:
+          type: number
+        averageSalary:
+          type: number
+
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    VcId:
+      type: string
+      description: Идентификатор объявления
+    Lock:
+      type: string
+      description: Версия оптимистичной блокировки
+    Permissions:
+      type: string
+      description: Доступы операций
+      enum:
+        - subscribe
+        - canceled
+        - read
+        - stat
+
+    VcResponseObject:
+      allOf:
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/VcId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/Lock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/Permissions'
+            model:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModelObject'
+
+    Area:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+
+    Salary:
+      type: object
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+        currency:
+          type: string
+        gross:
+          type: boolean
+
+    Address:
+      type: object
+      properties:
+        city:
+          type: string
+        street:
+          type: string
+        building:
+          type: string
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+
+    Employer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+
+    Snippet:
+      type: object
+      properties:
+        requirement:
+          type: string
+        responsibility:
+          type: string
+
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Experience:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        premium:
+          type: boolean
+        name:
+          type: string
+        department:
+          type: string
+        area:
+          $ref: '#/components/schemas/Area'
+        salary:
+          $ref: '#/components/schemas/Salary'
+        address:
+          $ref: '#/components/schemas/Address'
+        published_at:
+          type: string
+        created_at:
+          type: string
+        url:
+          type: string
+        employer:
+          $ref: '#/components/schemas/Employer'
+        snippet:
+          $ref: '#/components/schemas/Snippet'
+        contacts:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedule'
+        experience:
+          $ref: '#/components/schemas/Experience'
+
+    ModelObject:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+
+
+    ItemRequestObject:
+      type: object
+      properties:
+        email:
+          type: string
+        props:
+          type: array
+          items:
+            type: string
+
+    RequestDebug:
+        type: object
+        properties:
+          debug:
+            $ref: '#/components/schemas/Debug'
+
+    FilterStatObject:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          nullable: true
+        props:
+          type: array
+          items:
+            type: string
+
+    FilterObject:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          nullable: true
+        props:
+          type: array
+          items:
+            type: string
+        city:
+          type: string
+          nullable: true
+        platform:
+          $ref: '#/components/schemas/Platform'
+
+    Platform:
+      type: string
+      enum:
+        - hh
+        - habr
+        - superJob
+
+    Debug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/RequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/RequestDebugStub'
+
+    RequestDebugMode:
+      type: string
+      enum:
+        - none
+        - prod
+        - dev
+        - uat
+        - stub
+
+    RequestDebugStub:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - none
+        - success
+        - cannotCanceled
+        - cannotRead
+        - cannotStat
+        - cannotCompute
