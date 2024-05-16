@@ -7,10 +7,11 @@ data class SqlQuery(
     override var condition: String = "",
 ) : BaseQuery {
     override fun toString(): String {
-        return if(condition.isEmpty()) {
-            "$command $agrs $from"
-        } else {
-            "$command $agrs $from $condition"
+        return when (command.lowercase()) {
+            "insert" -> "$command $from $condition"
+            "update" -> "$command $from $agrs $condition"
+            "delete" -> "$command $from $condition"
+            else -> "$command $agrs $from${if (condition.isNotEmpty()) " $condition" else ""}"
         }
     }
 }
