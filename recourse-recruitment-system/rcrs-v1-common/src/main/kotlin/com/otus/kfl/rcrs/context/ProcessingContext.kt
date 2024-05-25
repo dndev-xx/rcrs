@@ -1,11 +1,10 @@
 package com.otus.kfl.rcrs.context
 
-import com.otus.kfl.rcrs.api.v1.models.BaseRequest
-import com.otus.kfl.rcrs.api.v1.models.BaseResponse
-import com.otus.kfl.rcrs.api.v1.models.FilterObject
-import com.otus.kfl.rcrs.api.v1.models.RequestDebugMode
-import com.otus.kfl.rcrs.api.v1.models.RequestDebugStub
 import com.otus.kfl.rcrs.constant.NONE
+import com.otus.kfl.rcrs.model.BaseInnerReq
+import com.otus.kfl.rcrs.model.BaseInnerResp
+import com.otus.kfl.rcrs.model.DebugMode
+import com.otus.kfl.rcrs.model.DebugStub
 import com.otus.kfl.rcrs.model.RcrsCommand
 import com.otus.kfl.rcrs.model.RcrsError
 import com.otus.kfl.rcrs.model.RcrsState
@@ -15,10 +14,10 @@ data class ProcessingContext(
     var command: RcrsCommand = RcrsCommand.NONE,
     var state: RcrsState = RcrsState.NONE,
     val errors: MutableList<RcrsError> = mutableListOf(),
-    var workMode: RequestDebugMode = RequestDebugMode.NONE,
-    var stubCase: RequestDebugStub = RequestDebugStub.NONE,
+    var workMode: DebugMode = DebugMode.NONE,
+    var stubCase: DebugStub = DebugStub.NONE,
     var timeStart: Instant = Instant.NONE,
-    var request: BaseRequest? = null,
-    var filtered: FilterObject = FilterObject(),
-    var response: BaseResponse? = null
+    var headers: MutableMap<String, String> = mutableMapOf(),
+    var request: BaseInnerReq? = null,
+    var response: BaseInnerResp? = null
 )

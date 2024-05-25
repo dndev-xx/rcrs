@@ -1,4 +1,4 @@
-rootProject.name = "build-plagin"
+rootProject.name = "build-plugin"
 
 dependencyResolutionManagement {
     versionCatalogs {

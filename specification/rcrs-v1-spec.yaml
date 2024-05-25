@@ -153,6 +153,8 @@ components:
         - $ref: '#/components/schemas/RequestDebug'
         - type: object
           properties:
+            mode:
+              $ref: '#/components/schemas/RequestModeAction'
             sub:
               $ref: '#/components/schemas/ItemRequestObject'
 
@@ -194,8 +196,6 @@ components:
           description: Список найденных объектов
           properties:
             vacancies:
-              type: array
-              items:
                 $ref: '#/components/schemas/VcResponseObject'
 
     VcResponseMultiStat:
@@ -204,8 +204,6 @@ components:
           description: Список собранной статистики
           properties:
             vacancies:
-              type: array
-              items:
                 $ref: '#/components/schemas/VcResponseObjectStat'
 
     VcResponseObjectStat:
@@ -280,8 +278,6 @@ components:
               items:
                 $ref: '#/components/schemas/Permissions'
             model:
-              type: array
-              items:
                 $ref: '#/components/schemas/ModelObject'
 
     Area:
@@ -409,11 +405,18 @@ components:
           items:
             type: string
 
+
     RequestDebug:
         type: object
         properties:
           debug:
             $ref: '#/components/schemas/Debug'
+
+    RequestModeAction:
+        type: object
+        properties:
+          prop:
+            $ref: '#/components/schemas/RequestModeObject'
 
     FilterStatObject:
       type: object
@@ -465,6 +468,12 @@ components:
         - dev
         - uat
         - stub
+
+    RequestModeObject:
+      type: string
+      enum:
+        - subscribe
+        - cancel
 
     RequestDebugStub:
       type: string
