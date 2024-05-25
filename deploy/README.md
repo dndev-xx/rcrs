@@ -7,3 +7,5 @@
 ```
 vm.max_map_count = 262144
 ```
+without sudo - sudo setfacl -m user:$USER:rw /var/run/docker.sock
+
