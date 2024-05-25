@@ -43,7 +43,7 @@ services:
     environment:
       - opensearch_host=opensearch
       - opensearch_user=admin
-      - opensearch_pass=admin
+      - opensearch_pass=adm-Password0
     volumes:
       - ./volumes/fluent-bit-etc/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
       - ./volumes/fluent-bit-etc/parsers.conf:/fluent-bit/etc/parsers.conf
